@@ -1,0 +1,60 @@
+Build a full-stack furniture RENTAL web application called "Furniture."
+
+BUSINESS MODEL:
+Customers rent furniture for a chosen duration (weekly or monthly), not buy 
+it. Every rental has a start date, rental period, a refundable security 
+deposit, and delivery + pickup. An item that's rented out cannot be rented 
+again for overlapping dates.
+
+TECH STACK:
+- Frontend: Next.js (React) + TypeScript + Tailwind CSS
+- Backend + Database: Supabase (PostgreSQL, Auth, Storage) with Next.js API 
+  routes for custom logic
+- Payments: Stripe (rental fee + refundable deposit; support recurring 
+  monthly billing)
+- Image hosting: Supabase Storage
+- Hosting: Vercel
+
+CORE FEATURES:
+1. Product catalog with search + filters (category, price per month, style, 
+   available dates)
+2. Product detail page with a rental-period selector, delivery date picker, 
+   price + deposit breakdown, and a live availability check
+3. Rental cart + Stripe checkout (rental fee + deposit + delivery fee), with 
+   delivery date scheduling
+4. User accounts: register/login, view active rentals, rental history, 
+   extend a rental or return early, manage saved payment methods
+5. Admin panel: add/edit/delete products, upload images, set rental rates 
+   and deposits, view all rentals, manage inventory & availability, mark 
+   items delivered/returned, and process deposit refunds
+
+DATA MODELS:
+- User: profile, saved payment methods, rental history
+- Product: name, category, description, images, rental rate, deposit amount, 
+  condition
+- RentalOrder: user, items, start/end dates, status, delivery info, payment
+- Availability: booked dates per item (to prevent double-booking)
+- Payment: rental fee, deposit, refund status
+
+RENTAL-SPECIFIC RULES:
+- Prevent double-booking: no overlapping rental dates for the same item
+- Show an availability calendar per product
+- Total = (rental rate × duration) + deposit + delivery fee
+- Rental statuses: pending → confirmed → delivered → active → returned/overdue
+- Support extending a rental and returning early
+
+BUILD ORDER (do it in this sequence):
+1. Set up the project (Next.js + Supabase + Tailwind) and create the 
+   database tables
+2. Build the product catalog + product detail page (read-only first)
+3. Add user accounts (login/register)
+4. Add the admin panel so real products can be added
+5. Add rental-period selection + availability calendar
+6. Add cart + Stripe checkout with deposit
+7. Add the "my rentals" dashboard (extend/return)
+8. Add search + filters, polish the design, and deploy to Vercel
+
+Design should look clean, modern, and premium — furniture is a visual 
+product, so use large high-quality images and lots of whitespace.
+
+Start with step 1: scaffold the project and set up the database tables.
