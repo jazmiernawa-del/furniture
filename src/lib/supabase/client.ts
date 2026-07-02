@@ -1,6 +1,6 @@
 import { createBrowserClient } from "@supabase/ssr";
 
-import { publicEnv } from "@/lib/env";
+import { assertSupabaseConfigured, publicEnv } from "@/lib/env";
 import type { Database } from "@/lib/types/database";
 
 /**
@@ -8,6 +8,7 @@ import type { Database } from "@/lib/types/database";
  * Uses the public anon key and is subject to Row Level Security.
  */
 export function createClient() {
+  assertSupabaseConfigured();
   return createBrowserClient<Database>(
     publicEnv.supabaseUrl,
     publicEnv.supabaseAnonKey,

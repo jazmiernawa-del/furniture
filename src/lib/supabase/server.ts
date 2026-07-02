@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 
-import { publicEnv } from "@/lib/env";
+import { assertSupabaseConfigured, publicEnv } from "@/lib/env";
 import type { Database } from "@/lib/types/database";
 
 /**
@@ -10,6 +10,7 @@ import type { Database } from "@/lib/types/database";
  * Security (it uses the anon key + the signed-in user's JWT).
  */
 export async function createClient() {
+  assertSupabaseConfigured();
   const cookieStore = await cookies();
 
   return createServerClient<Database>(
