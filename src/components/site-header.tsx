@@ -1,11 +1,12 @@
 import Link from "next/link";
 
 import { getProfile } from "@/lib/auth";
+import { cartCount } from "@/lib/cart";
 import { SignOutButton } from "@/components/sign-out-button";
 
-/** Global site header. Reflects auth state and grows as later steps add cart. */
+/** Global site header. Reflects auth state and cart contents. */
 export async function SiteHeader() {
-  const profile = await getProfile();
+  const [profile, count] = await Promise.all([getProfile(), cartCount()]);
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background/80 backdrop-blur">
@@ -51,10 +52,15 @@ export async function SiteHeader() {
             </Link>
           )}
           <Link
-            href="/catalog"
-            className="rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition hover:opacity-90"
+            href="/cart"
+            className="relative rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition hover:bg-muted"
           >
-            Browse pieces
+            Cart
+            {count > 0 && (
+              <span className="ml-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1.5 text-xs font-semibold text-accent-foreground">
+                {count}
+              </span>
+            )}
           </Link>
         </div>
       </div>

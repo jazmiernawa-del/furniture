@@ -6,9 +6,10 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SetupNotice } from "@/components/setup-notice";
 import { ProductGallery } from "@/components/product-gallery";
+import { RentalSelector } from "@/components/rental-selector";
 import { getProductBySlug } from "@/lib/data/products";
+import { getBookedRanges } from "@/lib/data/availability";
 import { isSupabaseConfigured } from "@/lib/env";
-import { formatCurrency } from "@/lib/format";
 
 const conditionLabels: Record<string, string> = {
   new: "New",
@@ -55,6 +56,8 @@ export default async function ProductDetailPage({
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
+  const bookedRanges = await getBookedRanges(product.id);
+
   return (
     <>
       <SiteHeader />
@@ -96,52 +99,16 @@ export default async function ProductDetailPage({
                 </p>
               )}
 
-              {/* Pricing summary. The interactive date selector + availability
-                  check are added in step 5. */}
-              <div className="mt-8 rounded-2xl border border-border bg-card p-6">
-                <div className="flex items-baseline justify-between">
-                  <span className="text-muted-foreground">Monthly</span>
-                  <span className="text-lg font-medium text-foreground">
-                    {formatCurrency(product.monthly_rate)}
-                    <span className="text-sm text-muted-foreground">/mo</span>
-                  </span>
-                </div>
-                {product.weekly_rate != null && (
-                  <div className="mt-3 flex items-baseline justify-between">
-                    <span className="text-muted-foreground">Weekly</span>
-                    <span className="font-medium text-foreground">
-                      {formatCurrency(product.weekly_rate)}
-                      <span className="text-sm text-muted-foreground">/wk</span>
-                    </span>
-                  </div>
-                )}
-                <div className="my-4 border-t border-border" />
-                <div className="flex items-baseline justify-between text-sm">
-                  <span className="text-muted-foreground">
-                    Refundable deposit
-                  </span>
-                  <span className="font-medium text-foreground">
-                    {formatCurrency(product.deposit)}
-                  </span>
-                </div>
-                <div className="mt-2 flex items-baseline justify-between text-sm">
-                  <span className="text-muted-foreground">Delivery fee</span>
-                  <span className="font-medium text-foreground">
-                    {formatCurrency(product.delivery_fee)}
-                  </span>
-                </div>
-
-                <button
-                  type="button"
-                  disabled
-                  className="mt-6 w-full cursor-not-allowed rounded-full bg-foreground/40 px-6 py-3 text-sm font-medium text-background"
-                >
-                  Select rental dates
-                </button>
-                <p className="mt-3 text-center text-xs text-muted-foreground">
-                  Date selection, live availability & checkout arrive in the next
-                  steps.
-                </p>
+              {/* Rental-period selection, availability calendar & pricing. */}
+              <div className="mt-8">
+                <RentalSelector
+                  slug={product.slug}
+                  monthlyRate={product.monthly_rate}
+                  weeklyRate={product.weekly_rate}
+                  deposit={product.deposit}
+                  deliveryFee={product.delivery_fee}
+                  bookedRanges={bookedRanges}
+                />
               </div>
             </div>
           </div>
