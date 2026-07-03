@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getCart } from "@/lib/cart";
 import { removeFromCart } from "@/app/cart/actions";
+import { BackButton } from "@/components/back-button";
 import { computePrice } from "@/lib/rental";
 import { formatCurrency, formatDate } from "@/lib/format";
 
@@ -40,6 +41,7 @@ export default async function CartPage() {
 
       <main className="flex-1">
         <div className="mx-auto max-w-4xl px-6 py-14">
+          <BackButton fallback="/catalog" label="Continue browsing" className="mb-8" />
           <p className="eyebrow">Your selections</p>
           <h1 className="mt-3 font-serif text-5xl font-light tracking-tight text-foreground">
             The cart

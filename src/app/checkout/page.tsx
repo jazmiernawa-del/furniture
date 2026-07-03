@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { CheckoutForm } from "@/components/checkout-form";
+import { BackButton } from "@/components/back-button";
 import { requireUser, getProfile } from "@/lib/auth";
 import { getCart } from "@/lib/cart";
 import { computeOrderTotals } from "@/lib/data/orders";
@@ -34,6 +35,7 @@ export default async function CheckoutPage({
 
       <main className="flex-1">
         <div className="mx-auto max-w-4xl px-6 py-14">
+          <BackButton fallback="/cart" label="Back to cart" className="mb-8" />
           <p className="eyebrow">Final details</p>
           <h1 className="mt-3 font-serif text-5xl font-light tracking-tight text-foreground">
             Checkout

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { BackButton } from "@/components/back-button";
 
 export const metadata: Metadata = {
   title: "How it works",
@@ -36,6 +37,7 @@ export default function HowItWorksPage() {
 
       <main className="flex-1">
         <div className="mx-auto max-w-3xl px-6 py-20">
+          <BackButton fallback="/" label="Back" className="mb-8" />
           <p className="eyebrow">The concierge experience</p>
           <h1 className="mt-4 font-serif text-5xl font-light leading-none tracking-tight text-foreground sm:text-6xl">
             How renting works

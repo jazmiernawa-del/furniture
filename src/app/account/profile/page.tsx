@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { ProfileForm } from "@/components/profile-form";
 import { requireUser, getProfile } from "@/lib/auth";
+import { BackButton } from "@/components/back-button";
 
 export const metadata: Metadata = { title: "Profile" };
 
@@ -11,6 +12,7 @@ export default async function ProfilePage() {
 
   return (
     <>
+      <BackButton fallback="/account" label="My rentals" className="mb-8" />
       <p className="eyebrow">Your details</p>
       <h1 className="mt-3 font-serif text-4xl font-light text-foreground">
         Profile

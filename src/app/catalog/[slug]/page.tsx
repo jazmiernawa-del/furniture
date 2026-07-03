@@ -11,6 +11,7 @@ import { getProductBySlug } from "@/lib/data/products";
 import { getBookedRanges } from "@/lib/data/availability";
 import { getFavoriteIds } from "@/lib/data/favorites";
 import { FavoriteButton } from "@/components/favorite-button";
+import { BackButton } from "@/components/back-button";
 import { isSupabaseConfigured } from "@/lib/env";
 
 const conditionLabels: Record<string, string> = {
@@ -67,13 +68,16 @@ export default async function ProductDetailPage({
 
       <main className="flex-1">
         <div className="mx-auto max-w-6xl px-6 py-10">
-          <nav className="text-sm text-muted-foreground">
-            <Link href="/catalog" className="transition hover:text-foreground">
-              Catalog
-            </Link>
-            <span className="mx-2">/</span>
-            <span className="text-foreground">{product.name}</span>
-          </nav>
+          <div className="flex items-center justify-between gap-4">
+            <BackButton fallback="/catalog" label="Back" />
+            <nav className="text-sm text-muted-foreground">
+              <Link href="/catalog" className="transition hover:text-foreground">
+                Catalog
+              </Link>
+              <span className="mx-2">/</span>
+              <span className="text-foreground">{product.name}</span>
+            </nav>
+          </div>
 
           <div className="mt-8 grid gap-12 lg:grid-cols-2">
             <ProductGallery

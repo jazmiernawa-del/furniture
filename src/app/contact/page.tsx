@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ContactForm } from "@/components/contact-form";
+import { BackButton } from "@/components/back-button";
 
 export const metadata: Metadata = {
   title: "Contact & Support",
@@ -42,6 +43,7 @@ export default function ContactPage() {
 
       <main className="flex-1">
         <div className="mx-auto max-w-6xl px-6 py-16 lg:px-10 lg:py-20">
+          <BackButton fallback="/" label="Back" className="mb-8" />
           <div className="max-w-2xl">
             <p className="eyebrow">Contact &amp; support</p>
             <h1 className="mt-4 font-serif text-5xl font-light leading-none tracking-tight text-foreground sm:text-6xl">

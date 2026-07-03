@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { ProductCard } from "@/components/product-card";
 import { getFavorites } from "@/lib/data/favorites";
+import { BackButton } from "@/components/back-button";
 
 export const metadata: Metadata = { title: "Saved" };
 
@@ -11,6 +12,7 @@ export default async function SavedPage() {
 
   return (
     <>
+      <BackButton fallback="/account" label="My rentals" className="mb-8" />
       <p className="eyebrow">Your wishlist</p>
       <h1 className="mt-3 font-serif text-4xl font-light text-foreground">
         Saved pieces
