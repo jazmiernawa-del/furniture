@@ -50,15 +50,15 @@ insert into public.product_images (product_id, url, alt, position, is_primary)
 select p.id, v.url, p.name, 0, true
 from (values
   ('belgrave-velvet-sofa',          'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80'),
-  ('como-sectional-sofa',           'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=1200&q=80'),
-  ('faye-oak-dining-table',         'https://images.unsplash.com/photo-1526057565006-20beab8dd2ed?auto=format&fit=crop&w=1200&q=80'),
-  ('lucienne-marble-dining-table',  'https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&w=1200&q=80'),
-  ('sereno-upholstered-bed',        'https://images.unsplash.com/photo-1540574163026-643ea20ade25?auto=format&fit=crop&w=1200&q=80'),
-  ('linnea-oak-bed',                'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80'),
-  ('rousseau-accent-chair',         'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80'),
-  ('otto-lounge-chair',             'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80'),
-  ('halo-arc-floor-lamp',           'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1200&q=80'),
-  ('meridian-shelving',             'https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?auto=format&fit=crop&w=1200&q=80')
+  ('como-sectional-sofa',           'https://images.unsplash.com/photo-1540574163026-643ea20ade25?auto=format&fit=crop&w=1200&q=80'),
+  ('faye-oak-dining-table',         'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80'),
+  ('lucienne-marble-dining-table',  'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=80'),
+  ('sereno-upholstered-bed',        'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1200&q=80'),
+  ('linnea-oak-bed',                'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=80'),
+  ('rousseau-accent-chair',         'https://images.unsplash.com/photo-1611967164521-abae8fba4668?auto=format&fit=crop&w=1200&q=80'),
+  ('otto-lounge-chair',             'https://images.unsplash.com/photo-1519947486511-46149fa0a254?auto=format&fit=crop&w=1200&q=80'),
+  ('halo-arc-floor-lamp',           'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=1200&q=80'),
+  ('meridian-shelving',             'https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?auto=format&fit=crop&w=1200&q=80')
 ) as v(slug, url)
 join public.products p on p.slug = v.slug
 on conflict do nothing;

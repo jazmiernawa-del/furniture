@@ -46,7 +46,7 @@ export async function SiteHeader({
           </Link>
           {profile?.role === "admin" && (
             <Link href="/admin" className={`transition ${link}`}>
-              Atelier
+              Admin
             </Link>
           )}
         </nav>

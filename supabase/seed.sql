@@ -44,12 +44,12 @@ on conflict (slug) do nothing;
 insert into public.product_images (product_id, url, alt, position, is_primary)
 select p.id, v.url, p.name, 0, true
 from (values
-  ('marlow-linen-sofa',          'https://images.unsplash.com/photo-1550226891-ef816aed4a98?auto=format&fit=crop&w=1200&q=80'),
+  ('marlow-linen-sofa',          'https://images.unsplash.com/photo-1512212621149-107ffe572d2f?auto=format&fit=crop&w=1200&q=80'),
   ('aria-boucle-armchair',       'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=1200&q=80'),
   ('nova-walnut-dining-table',   'https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=1200&q=80'),
   ('halden-platform-bed',        'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80'),
-  ('ember-leather-lounge-chair', 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=80'),
-  ('sol-oak-coffee-table',       'https://images.unsplash.com/photo-1499933374294-4584851497cc?auto=format&fit=crop&w=1200&q=80'),
+  ('ember-leather-lounge-chair', 'https://images.unsplash.com/photo-1615875605825-5eb9bb5d52ac?auto=format&fit=crop&w=1200&q=80'),
+  ('sol-oak-coffee-table',       'https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=1200&q=80'),
   ('kepler-modular-bookshelf',   'https://images.unsplash.com/photo-1594620302200-9a762244a156?auto=format&fit=crop&w=1200&q=80'),
   ('atlas-standing-desk',        'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=1200&q=80')
 ) as v(slug, url)

@@ -197,6 +197,32 @@ export async function extendRental(formData: FormData): Promise<void> {
   revalidatePath("/admin/rentals");
 }
 
+export interface ProfileState {
+  error?: string | null;
+  message?: string | null;
+}
+
+/** Update the current user's profile (name + phone). */
+export async function updateProfile(
+  _prev: ProfileState,
+  formData: FormData,
+): Promise<ProfileState> {
+  const user = await requireUser();
+  const fullName = String(formData.get("full_name") ?? "").trim();
+  const phone = String(formData.get("phone") ?? "").trim();
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("profiles")
+    .update({ full_name: fullName || null, phone: phone || null })
+    .eq("id", user.id);
+
+  if (error) return { error: error.message };
+
+  revalidatePath("/account", "layout");
+  return { message: "Profile updated." };
+}
+
 /** Open the Stripe billing portal to manage saved payment methods. */
 export async function manageBilling(): Promise<void> {
   await requireUser();
