@@ -3,7 +3,8 @@ import Link from "next/link";
 
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { luxeImages } from "@/lib/images";
+import { HeroSlideshow } from "@/components/hero-slideshow";
+import { luxeImages, heroSlides } from "@/lib/images";
 
 const steps = [
   {
@@ -27,16 +28,9 @@ export default function Home() {
   return (
     <>
       {/* ================= HERO ================= */}
-      <section className="relative h-[92vh] min-h-[640px] w-full overflow-hidden">
-        <Image
-          src={luxeImages.hero}
-          alt="A beautifully styled living room"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/25 to-ink/80" />
+      <section className="relative h-screen min-h-[640px] w-full overflow-hidden">
+        <HeroSlideshow images={heroSlides} />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/25 to-ink/80" />
 
         <SiteHeader variant="overlay" />
 
@@ -74,7 +68,7 @@ export default function Home() {
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
         <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:items-center">
           <div>
-            <p className="eyebrow">The Furniture ethos</p>
+            <p className="eyebrow">The Maison ethos</p>
             <h2 className="mt-5 font-serif text-4xl font-light leading-tight text-foreground sm:text-5xl">
               Design worth living with, for exactly as long as you need it.
             </h2>

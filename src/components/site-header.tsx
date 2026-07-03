@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { getProfile } from "@/lib/auth";
 import { cartCount } from "@/lib/cart";
+import { BRAND_NAME } from "@/lib/brand";
 import { SignOutButton } from "@/components/sign-out-button";
 
 /**
@@ -32,7 +33,7 @@ export async function SiteHeader({
           href="/"
           className="font-serif text-2xl font-medium tracking-tight"
         >
-          Furniture
+          {BRAND_NAME}
           <span className={overlay ? "text-white/60" : "text-accent"}>.</span>
         </Link>
 

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { luxeImages } from "@/lib/images";
+import { BRAND_NAME } from "@/lib/brand";
 
 /**
  * Cinematic split-screen shell for the auth screens: a full-bleed furniture
@@ -34,7 +35,7 @@ export function AuthShell({
             href="/"
             className="font-serif text-2xl font-medium text-white"
           >
-            Furniture<span className="text-accent">.</span>
+            {BRAND_NAME}<span className="text-accent">.</span>
           </Link>
           <div>
             <div className="mb-6 h-px w-16 bg-accent" />
@@ -43,7 +44,7 @@ export function AuthShell({
               the season.”
             </p>
             <p className="mt-4 text-[0.7rem] font-medium uppercase tracking-[0.24em] text-white/60">
-              The Furniture Atelier
+              The {BRAND_NAME} Atelier
             </p>
           </div>
         </div>
@@ -56,7 +57,7 @@ export function AuthShell({
             href="/"
             className="font-serif text-2xl font-medium text-foreground lg:hidden"
           >
-            Furniture<span className="text-accent">.</span>
+            {BRAND_NAME}<span className="text-accent">.</span>
           </Link>
 
           <p className="eyebrow mt-8 lg:mt-0">Members</p>

@@ -27,6 +27,8 @@ export function ProductCard({ product }: { product: ProductWithImages }) {
           className="zoom-img object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        {/* Gold frame on hover */}
+        <span className="pointer-events-none absolute inset-3 ring-1 ring-inset ring-accent/0 transition-all duration-500 group-hover:ring-accent/70" />
         <span className="absolute left-4 top-4 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-white opacity-0 transition-opacity duration-500 group-hover:opacity-100">
           {conditionLabels[product.condition] ?? product.condition}
         </span>

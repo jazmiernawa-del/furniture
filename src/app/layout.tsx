@@ -19,11 +19,11 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   ),
   title: {
-    default: "Furniture — Rent beautiful pieces, monthly",
-    template: "%s · Furniture",
+    default: "Maison — Luxury furniture, rented for a season",
+    template: "%s · Maison",
   },
   description:
-    "Rent premium furniture by the week or month. Flexible terms, refundable deposit, white-glove delivery and pickup.",
+    "Maison is a curated collection of premium furniture to rent by the week or month. Flexible terms, refundable deposit, white-glove delivery and pickup.",
 };
 
 export default function RootLayout({

@@ -1,36 +1,31 @@
 import type { OrderStatus } from "@/lib/types/database";
 
-const config: Record<OrderStatus, { label: string; dot: string; text: string }> =
-  {
-    pending: { label: "Pending", dot: "bg-amber-500", text: "text-amber-700" },
-    confirmed: { label: "Confirmed", dot: "bg-sky-500", text: "text-sky-700" },
-    delivered: {
-      label: "Delivered",
-      dot: "bg-indigo-500",
-      text: "text-indigo-700",
-    },
-    active: { label: "Active", dot: "bg-emerald-500", text: "text-emerald-700" },
-    returned: {
-      label: "Returned",
-      dot: "bg-stone-400",
-      text: "text-muted-foreground",
-    },
-    overdue: { label: "Overdue", dot: "bg-red-500", text: "text-red-700" },
-    cancelled: {
-      label: "Cancelled",
-      dot: "bg-stone-400",
-      text: "text-muted-foreground",
-    },
-  };
+const dotColor: Record<OrderStatus, string> = {
+  pending: "bg-amber-400",
+  confirmed: "bg-sky-400",
+  delivered: "bg-indigo-400",
+  active: "bg-emerald-400",
+  returned: "bg-stone-400",
+  overdue: "bg-red-400",
+  cancelled: "bg-stone-400",
+};
 
+const label: Record<OrderStatus, string> = {
+  pending: "Pending",
+  confirmed: "Confirmed",
+  delivered: "Delivered",
+  active: "In Residence",
+  returned: "Returned",
+  overdue: "Overdue",
+  cancelled: "Cancelled",
+};
+
+/** Gold-framed status pill with a state-colored dot. */
 export function StatusBadge({ status }: { status: OrderStatus }) {
-  const c = config[status];
   return (
-    <span
-      className={`inline-flex items-center gap-2 text-[0.65rem] font-medium uppercase tracking-[0.18em] ${c.text}`}
-    >
-      <span className={`h-1.5 w-1.5 rounded-full ${c.dot}`} />
-      {c.label}
+    <span className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/5 px-3 py-1 text-[0.62rem] font-medium uppercase tracking-[0.18em] text-accent-strong">
+      <span className={`h-1.5 w-1.5 rounded-full ${dotColor[status]}`} />
+      {label[status]}
     </span>
   );
 }

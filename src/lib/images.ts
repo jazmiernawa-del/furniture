@@ -22,5 +22,13 @@ export const luxeImages = {
   concierge: u("1567538096630-e0c55bd6374c", 1600),
 } as const;
 
+/** Full-screen hero slideshow frames (cinematic interiors). */
+export const heroSlides = [
+  u("1616486338812-3dadae4b4ace", 2000),
+  u("1617806118233-18e1de247200", 2000),
+  u("1505693416388-ac5ce068fe85", 2000),
+  u("1550226891-ef816aed4a98", 2000),
+];
+
 /** A soft placeholder used when a product has no image of its own. */
 export const fallbackProductImage = u("1594620302200-9a762244a156", 1200);
