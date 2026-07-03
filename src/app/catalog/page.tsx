@@ -12,6 +12,7 @@ import {
   getStyles,
   type ProductQuery,
 } from "@/lib/data/products";
+import { getFavoriteIds } from "@/lib/data/favorites";
 import { isSupabaseConfigured } from "@/lib/env";
 import { luxeImages } from "@/lib/images";
 
@@ -44,10 +45,11 @@ export default async function CatalogPage({
     to: sp.to,
   };
 
-  const [products, categories, styles] = await Promise.all([
+  const [products, categories, styles, favIds] = await Promise.all([
     getProducts(query),
     getCategories(),
     getStyles(),
+    getFavoriteIds(),
   ]);
 
   return (
@@ -100,7 +102,11 @@ export default async function CatalogPage({
               </div>
               <div className="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
                 {products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    favorited={favIds.has(product.id)}
+                  />
                 ))}
               </div>
             </>

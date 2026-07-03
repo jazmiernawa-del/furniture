@@ -4,6 +4,7 @@ import { requireUser, getProfile } from "@/lib/auth";
 import { manageBilling } from "@/app/account/actions";
 import { signOut } from "@/app/auth/actions";
 import { BRAND_NAME } from "@/lib/brand";
+import { AccountNav } from "@/components/account-nav";
 
 export const dynamic = "force-dynamic";
 
@@ -40,16 +41,7 @@ export default async function AccountLayout({
             )}
           </div>
 
-          <nav className="mt-12 flex flex-col gap-1 text-[0.72rem] uppercase tracking-[0.2em]">
-            <SideLink href="/account" active>
-              My Rentals
-            </SideLink>
-            <SideLink href="/catalog">The Collection</SideLink>
-            <SideLink href="/how-it-works">Concierge</SideLink>
-            {profile?.role === "admin" && (
-              <SideLink href="/admin">Atelier</SideLink>
-            )}
-          </nav>
+          <AccountNav isAdmin={profile?.role === "admin"} />
 
           <div className="mt-auto space-y-3 pt-10">
             <div className="gold-rule opacity-30" />
@@ -74,28 +66,5 @@ export default async function AccountLayout({
         </div>
       </main>
     </div>
-  );
-}
-
-function SideLink({
-  href,
-  active = false,
-  children,
-}: {
-  href: string;
-  active?: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <Link
-      href={href}
-      className={`border-l-2 py-2.5 pl-4 transition ${
-        active
-          ? "border-accent text-white"
-          : "border-transparent text-ink-foreground/55 hover:border-accent/50 hover:text-white"
-      }`}
-    >
-      {children}
-    </Link>
   );
 }

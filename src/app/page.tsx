@@ -6,6 +6,10 @@ import { SiteFooter } from "@/components/site-footer";
 import { HeroSlideshow } from "@/components/hero-slideshow";
 import { ImageCarousel } from "@/components/image-carousel";
 import { Reveal } from "@/components/reveal";
+import { Testimonials } from "@/components/testimonials";
+import { AsFeaturedIn } from "@/components/as-featured-in";
+import { RoomGallery } from "@/components/room-gallery";
+import { TrustBadges } from "@/components/trust-badges";
 import { luxeImages, heroSlides, featureSlides } from "@/lib/images";
 
 const steps = [
@@ -66,6 +70,13 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ================= TRUST BADGES ================= */}
+      <section className="border-b border-border bg-card">
+        <Reveal className="mx-auto max-w-7xl px-6 py-14 lg:px-10">
+          <TrustBadges />
+        </Reveal>
+      </section>
+
       {/* ================= PHILOSOPHY ================= */}
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
         <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:items-center">
@@ -101,8 +112,15 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ================= AS FEATURED IN ================= */}
+      <section className="border-y border-border">
+        <Reveal className="mx-auto max-w-7xl px-6 py-14 lg:px-10">
+          <AsFeaturedIn />
+        </Reveal>
+      </section>
+
       {/* ================= HOW IT WORKS ================= */}
-      <section className="border-y border-border bg-card">
+      <section className="bg-card">
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
           <Reveal className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">The concierge experience</p>
@@ -131,6 +149,32 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* ================= CUSTOMER ROOMS ================= */}
+      <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <p className="eyebrow">At home with Maison</p>
+          <h2 className="mt-5 font-serif text-4xl font-light text-foreground sm:text-5xl">
+            Real rooms, really lived in
+          </h2>
+          <p className="mt-4 leading-relaxed text-muted-foreground">
+            A look inside homes styled with pieces from the collection.
+          </p>
+        </Reveal>
+        <Reveal delay={120} className="mt-14">
+          <RoomGallery />
+        </Reveal>
+      </section>
+
+      {/* ================= TESTIMONIALS ================= */}
+      <section className="border-y border-border bg-card">
+        <Reveal className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+          <p className="eyebrow text-center">Kind words</p>
+          <div className="mt-12">
+            <Testimonials />
+          </div>
+        </Reveal>
       </section>
 
       {/* ================= LIFESTYLE BAND (overlapping text) ================= */}

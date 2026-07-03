@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 
-import { luxeImages } from "@/lib/images";
+import { HeroSlideshow } from "@/components/hero-slideshow";
+import { loginSlides } from "@/lib/images";
 import { BRAND_NAME } from "@/lib/brand";
 
 /**
@@ -21,19 +21,12 @@ export function AuthShell({
     <div className="grid min-h-screen lg:grid-cols-[1.05fr_1fr]">
       {/* Image side */}
       <div className="relative hidden overflow-hidden lg:block">
-        <Image
-          src={luxeImages.authPortrait}
-          alt="An elegantly furnished interior"
-          fill
-          priority
-          sizes="50vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/45 via-ink/25 to-ink/80" />
-        <div className="absolute inset-0 flex flex-col justify-between p-12">
+        <HeroSlideshow images={loginSlides} interval={4000} />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/45 via-ink/25 to-ink/80" />
+        <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-12">
           <Link
             href="/"
-            className="font-serif text-2xl font-medium text-white"
+            className="pointer-events-auto font-serif text-2xl font-medium text-white"
           >
             {BRAND_NAME}<span className="text-accent">.</span>
           </Link>

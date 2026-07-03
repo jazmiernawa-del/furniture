@@ -9,6 +9,8 @@ import { ProductGallery } from "@/components/product-gallery";
 import { RentalSelector } from "@/components/rental-selector";
 import { getProductBySlug } from "@/lib/data/products";
 import { getBookedRanges } from "@/lib/data/availability";
+import { getFavoriteIds } from "@/lib/data/favorites";
+import { FavoriteButton } from "@/components/favorite-button";
 import { isSupabaseConfigured } from "@/lib/env";
 
 const conditionLabels: Record<string, string> = {
@@ -57,6 +59,7 @@ export default async function ProductDetailPage({
   if (!product) notFound();
 
   const bookedRanges = await getBookedRanges(product.id);
+  const favIds = await getFavoriteIds();
 
   return (
     <>
@@ -101,6 +104,15 @@ export default async function ProductDetailPage({
               )}
 
               <div className="mt-8 gold-rule w-20" />
+
+              <div className="mt-6">
+                <FavoriteButton
+                  productId={product.id}
+                  favorited={favIds.has(product.id)}
+                  redirectTo={`/catalog/${product.slug}`}
+                  variant="full"
+                />
+              </div>
 
               {/* Rental-period selection, availability calendar & pricing. */}
               <div className="mt-8">

@@ -235,6 +235,20 @@ export interface Database {
         Update: Partial<Database["public"]["Tables"]["bookings"]["Insert"]>;
         Relationships: [];
       };
+      favorites: {
+        Row: {
+          user_id: string;
+          product_id: string;
+          created_at: string;
+        };
+        Insert: {
+          user_id: string;
+          product_id: string;
+          created_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["favorites"]["Insert"]>;
+        Relationships: [];
+      };
       payments: {
         Row: {
           id: string;

@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { StatusBadge } from "@/components/status-badge";
 import { RentalActions } from "@/components/rental-actions";
+import { OrderTracker, isTrackable } from "@/components/order-tracker";
 import {
   getUserOrders,
   splitOrders,
@@ -159,6 +160,8 @@ function RentalCard({
               ))}
             </ul>
           )}
+
+          {isTrackable(order.status) && <OrderTracker status={order.status} />}
 
           {canAct && (
             <div className="mt-auto">
