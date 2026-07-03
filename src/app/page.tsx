@@ -4,7 +4,9 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { HeroSlideshow } from "@/components/hero-slideshow";
-import { luxeImages, heroSlides } from "@/lib/images";
+import { ImageCarousel } from "@/components/image-carousel";
+import { Reveal } from "@/components/reveal";
+import { luxeImages, heroSlides, featureSlides } from "@/lib/images";
 
 const steps = [
   {
@@ -29,7 +31,7 @@ export default function Home() {
     <>
       {/* ================= HERO ================= */}
       <section className="relative h-screen min-h-[640px] w-full overflow-hidden">
-        <HeroSlideshow images={heroSlides} />
+        <HeroSlideshow images={heroSlides} interval={4000} />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/25 to-ink/80" />
 
         <SiteHeader variant="overlay" />
@@ -67,7 +69,7 @@ export default function Home() {
       {/* ================= PHILOSOPHY ================= */}
       <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
         <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:items-center">
-          <div>
+          <Reveal>
             <p className="eyebrow">The Maison ethos</p>
             <h2 className="mt-5 font-serif text-4xl font-light leading-tight text-foreground sm:text-5xl">
               Design worth living with, for exactly as long as you need it.
@@ -85,32 +87,36 @@ export default function Home() {
               <span className="h-px w-10 bg-accent" />
               Begin browsing
             </Link>
-          </div>
+          </Reveal>
 
-          <div className="zoom-parent relative aspect-[5/4] overflow-hidden rounded-sm">
-            <Image
-              src={luxeImages.feature}
-              alt="A linen sofa in a sunlit room"
-              fill
-              sizes="(min-width: 1024px) 55vw, 100vw"
-              className="zoom-img object-cover"
-            />
-          </div>
+          <Reveal delay={120}>
+            <div className="relative aspect-[5/4] overflow-hidden rounded-sm bg-muted">
+              <ImageCarousel
+                images={featureSlides}
+                interval={3500}
+                alt="Furniture from the collection"
+              />
+            </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ================= HOW IT WORKS ================= */}
       <section className="border-y border-border bg-card">
         <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
-          <div className="mx-auto max-w-2xl text-center">
+          <Reveal className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">The concierge experience</p>
             <h2 className="mt-5 font-serif text-4xl font-light text-foreground sm:text-5xl">
               Effortless from first glance to final pickup
             </h2>
-          </div>
+          </Reveal>
           <div className="mt-16 grid gap-12 md:grid-cols-3">
-            {steps.map((step) => (
-              <div key={step.n} className="text-center md:text-left">
+            {steps.map((step, i) => (
+              <Reveal
+                key={step.n}
+                delay={i * 140}
+                className="text-center md:text-left"
+              >
                 <p className="font-serif text-5xl font-light text-accent">
                   {step.n}
                 </p>
@@ -121,7 +127,7 @@ export default function Home() {
                 <p className="mt-3 leading-relaxed text-muted-foreground">
                   {step.body}
                 </p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -141,7 +147,7 @@ export default function Home() {
         </div>
         <div className="absolute inset-0 flex items-center">
           <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
-            <div className="max-w-md bg-card/95 p-10 shadow-2xl backdrop-blur-sm sm:p-12">
+            <Reveal className="max-w-md bg-card/95 p-10 shadow-2xl backdrop-blur-sm sm:p-12">
               <p className="eyebrow">White-glove service</p>
               <h2 className="mt-4 font-serif text-4xl font-light leading-tight text-foreground">
                 Delivered, styled, and collected — you simply enjoy it.
@@ -152,13 +158,13 @@ export default function Home() {
               >
                 Start your collection
               </Link>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
       {/* ================= CLOSING ================= */}
-      <section className="mx-auto max-w-4xl px-6 py-28 text-center">
+      <Reveal className="mx-auto max-w-4xl px-6 py-28 text-center">
         <p className="eyebrow">Your next chapter</p>
         <h2 className="mt-5 font-serif text-5xl font-light leading-tight text-foreground sm:text-6xl">
           Furnish for a season,
@@ -171,7 +177,7 @@ export default function Home() {
         >
           Explore the collection
         </Link>
-      </section>
+      </Reveal>
 
       <SiteFooter />
     </>

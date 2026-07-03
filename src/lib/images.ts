@@ -30,5 +30,13 @@ export const heroSlides = [
   u("1550226891-ef816aed4a98", 2000),
 ];
 
+/** Framed carousel — furniture close-ups for the philosophy section. */
+export const featureSlides = [
+  u("1550226891-ef816aed4a98", 1600),
+  u("1567538096630-e0c55bd6374c", 1600),
+  u("1586023492125-27b2c045efd7", 1600),
+  u("1499933374294-4584851497cc", 1600),
+];
+
 /** A soft placeholder used when a product has no image of its own. */
 export const fallbackProductImage = u("1594620302200-9a762244a156", 1200);
