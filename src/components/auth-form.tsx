@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import Link from "next/link";
 
 import { login, register, type AuthState } from "@/app/auth/actions";
+import { SocialAuthButtons } from "@/components/social-auth-buttons";
 
 const initialState: AuthState = {};
 
@@ -20,8 +21,11 @@ export function AuthForm({
   const isRegister = mode === "register";
 
   return (
-    <form action={formAction} className="space-y-5">
-      {next && <input type="hidden" name="next" value={next} />}
+    <>
+      <SocialAuthButtons next={next} />
+
+      <form action={formAction} className="space-y-5">
+        {next && <input type="hidden" name="next" value={next} />}
 
       {isRegister && (
         <Field
@@ -42,14 +46,26 @@ export function AuthForm({
         required
       />
 
-      <Field
-        label="Password"
-        name="password"
-        type="password"
-        autoComplete={isRegister ? "new-password" : "current-password"}
-        placeholder={isRegister ? "At least 8 characters" : "••••••••"}
-        required
-      />
+      <div>
+        <Field
+          label="Password"
+          name="password"
+          type="password"
+          autoComplete={isRegister ? "new-password" : "current-password"}
+          placeholder={isRegister ? "At least 8 characters" : "••••••••"}
+          required
+        />
+        {!isRegister && (
+          <div className="mt-1.5 text-right">
+            <Link
+              href="/forgot-password"
+              className="text-sm text-muted-foreground underline-offset-4 transition hover:text-foreground hover:underline"
+            >
+              Forgot password?
+            </Link>
+          </div>
+        )}
+      </div>
 
       {state.error && (
         <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
@@ -91,7 +107,8 @@ export function AuthForm({
           </>
         )}
       </p>
-    </form>
+      </form>
+    </>
   );
 }
 
