@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { requireAdmin } from "@/lib/auth";
 import { publicEnv } from "@/lib/env";
+import { getStripe, isStripeConfigured, toCents } from "@/lib/stripe";
 import { slugify } from "@/lib/slug";
 import type {
   OrderStatus,
@@ -266,8 +267,9 @@ export async function updateOrderStatus(formData: FormData): Promise<void> {
 }
 
 /**
- * Marks the deposit for an order as refunded. The real Stripe refund call is
- * wired in step 6 (Stripe). For now this records the refund at the DB level.
+ * Refunds the security deposit for an order. Issues a partial Stripe refund
+ * (deposit amount) against the order's PaymentIntent when Stripe is configured,
+ * then records it. Falls back to a DB-only refund when Stripe isn't set up.
  */
 export async function refundDeposit(formData: FormData): Promise<void> {
   await requireAdmin();
@@ -277,17 +279,36 @@ export async function refundDeposit(formData: FormData): Promise<void> {
   const supabase = await createClient();
   const { data: payment } = await supabase
     .from("payments")
-    .select("id, amount")
+    .select("id, amount, status, stripe_payment_intent_id")
     .eq("order_id", orderId)
     .eq("type", "deposit")
     .maybeSingle();
 
-  if (payment) {
-    await supabase
-      .from("payments")
-      .update({ status: "refunded", refunded_amount: payment.amount })
-      .eq("id", payment.id);
+  if (!payment) return;
+  if (payment.status === "refunded") return;
+
+  let stripeRefundId: string | null = null;
+  if (isStripeConfigured() && payment.stripe_payment_intent_id) {
+    try {
+      const refund = await getStripe().refunds.create({
+        payment_intent: payment.stripe_payment_intent_id,
+        amount: toCents(Number(payment.amount)),
+      });
+      stripeRefundId = refund.id;
+    } catch (err) {
+      console.error("Stripe deposit refund failed:", err);
+      return; // don't mark refunded if Stripe rejected it
+    }
   }
+
+  await supabase
+    .from("payments")
+    .update({
+      status: "refunded",
+      refunded_amount: payment.amount,
+      stripe_refund_id: stripeRefundId,
+    })
+    .eq("id", payment.id);
 
   revalidatePath("/admin/rentals");
 }
