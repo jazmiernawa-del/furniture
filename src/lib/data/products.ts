@@ -137,6 +137,56 @@ export async function getStyles(): Promise<string[]> {
   }
 }
 
+/**
+ * Recommend active products for a customer, biased toward the categories they've
+ * already rented (excluding those exact pieces). Falls back to newest active
+ * products. Returns up to `limit`.
+ */
+export async function getRecommendations(
+  rentedIds: string[],
+  limit = 4,
+): Promise<ProductWithImages[]> {
+  if (!isSupabaseConfigured()) return [];
+  try {
+    const supabase = await createClient();
+
+    let categories: string[] = [];
+    if (rentedIds.length) {
+      const { data } = await supabase
+        .from("products")
+        .select("category")
+        .in("id", rentedIds);
+      categories = Array.from(new Set((data ?? []).map((r) => r.category)));
+    }
+
+    const fetchActive = async (cats: string[]) => {
+      let q = supabase
+        .from("products")
+        .select("*, product_images(*)")
+        .eq("status", "active")
+        .order("created_at", { ascending: false })
+        .limit(24);
+      if (cats.length) q = q.in("category", cats);
+      const { data } = await q;
+      return (data ?? []) as unknown as ProductWithImages[];
+    };
+
+    const seen = new Set(rentedIds);
+    let picks = (await fetchActive(categories)).filter((p) => !seen.has(p.id));
+
+    if (picks.length < limit) {
+      const extra = (await fetchActive([])).filter(
+        (p) => !seen.has(p.id) && !picks.some((r) => r.id === p.id),
+      );
+      picks = [...picks, ...extra];
+    }
+
+    return picks.slice(0, limit).map(sortImages);
+  } catch {
+    return [];
+  }
+}
+
 function sortImages(product: ProductWithImages): ProductWithImages {
   const images = [...(product.product_images ?? [])].sort(
     (a, b) => a.position - b.position,

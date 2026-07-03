@@ -11,7 +11,7 @@ export default async function ProfilePage() {
   const profile = await getProfile();
 
   return (
-    <>
+    <div className="mx-auto max-w-5xl px-6 py-14 lg:px-12">
       <BackButton fallback="/account" label="My rentals" className="mb-8" />
       <p className="eyebrow">Your details</p>
       <h1 className="mt-3 font-serif text-4xl font-light text-foreground">
@@ -28,6 +28,6 @@ export default async function ProfilePage() {
           email={user.email ?? ""}
         />
       </div>
-    </>
+    </div>
   );
 }

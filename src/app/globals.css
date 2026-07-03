@@ -173,6 +173,36 @@
   }
 }
 
+/* Slow warm "aurora" gradient for the dashboard welcome hero. */
+@keyframes auroraShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.aurora {
+  background: linear-gradient(
+    120deg,
+    #17140f 0%,
+    #241d14 30%,
+    #4a3a24 50%,
+    #241d14 70%,
+    #17140f 100%
+  );
+  background-size: 240% 240%;
+  animation: auroraShift 18s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aurora {
+    animation: none;
+  }
+}
+
 /* Route-change transition (applied via app/template.tsx). */
 @keyframes pageIn {
   from {
