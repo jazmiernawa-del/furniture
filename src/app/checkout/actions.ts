@@ -125,8 +125,14 @@ export async function startCheckout(
       line_items: lineItems,
       customer_email: user.email,
       client_reference_id: user.id,
+      // Create a Customer and save the card for off-session charges (used when
+      // extending a rental) and the billing portal.
+      customer_creation: "always",
       metadata: { order_id: orderId, user_id: user.id },
-      payment_intent_data: { metadata: { order_id: orderId } },
+      payment_intent_data: {
+        metadata: { order_id: orderId },
+        setup_future_usage: "off_session",
+      },
       success_url: `${publicEnv.siteUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${publicEnv.siteUrl}/checkout?canceled=1`,
     });
