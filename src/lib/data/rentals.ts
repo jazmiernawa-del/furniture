@@ -58,6 +58,8 @@ export async function getProductThumbnails(
 const OPEN_STATUSES = new Set([
   "pending",
   "confirmed",
+  "preparing",
+  "out_for_delivery",
   "delivered",
   "active",
   "overdue",

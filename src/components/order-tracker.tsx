@@ -6,20 +6,31 @@ const STEPS = ["Confirmed", "Preparing", "Out for Delivery", "Delivered"];
 function reachedIndex(status: OrderStatus): number {
   switch (status) {
     case "confirmed":
-      return 1; // confirmed + now preparing
+      return 0;
+    case "preparing":
+      return 1;
+    case "out_for_delivery":
+      return 2;
     case "delivered":
     case "active":
     case "overdue":
     case "returned":
-      return 3; // delivered (and beyond)
+      return 3;
     default:
-      return 0;
+      return -1;
   }
 }
 
 /** Whether the tracker is meaningful for this status. */
 export function isTrackable(status: OrderStatus): boolean {
-  return ["confirmed", "delivered", "active", "overdue"].includes(status);
+  return [
+    "confirmed",
+    "preparing",
+    "out_for_delivery",
+    "delivered",
+    "active",
+    "overdue",
+  ].includes(status);
 }
 
 export function OrderTracker({ status }: { status: OrderStatus }) {

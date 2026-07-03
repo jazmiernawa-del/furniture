@@ -3,6 +3,7 @@ import "server-only";
 import { createClient } from "@/lib/supabase/server";
 import type {
   OrderItem,
+  OrderStatus,
   Payment,
   Profile,
   RentalOrder,
@@ -69,6 +70,73 @@ export async function getAllOrders(): Promise<AdminOrder[]> {
     return [];
   }
   return (data ?? []) as unknown as AdminOrder[];
+}
+
+// Statuses that represent paid revenue (everything past pending, not cancelled).
+const PAID_STATUSES: OrderStatus[] = [
+  "confirmed",
+  "preparing",
+  "out_for_delivery",
+  "delivered",
+  "active",
+  "returned",
+  "overdue",
+];
+
+export interface SalesStats {
+  totalRevenue: number;
+  totalOrders: number;
+  totalCustomers: number;
+  monthly: { label: string; revenue: number }[];
+}
+
+/** Revenue = rental + delivery (deposit is refundable, so excluded). */
+export async function getSalesStats(): Promise<SalesStats> {
+  const supabase = await createClient();
+
+  const [{ data: orders }, { count: customerCount }] = await Promise.all([
+    supabase
+      .from("rental_orders")
+      .select("subtotal, delivery_fee, created_at, status")
+      .in("status", PAID_STATUSES),
+    supabase
+      .from("profiles")
+      .select("id", { count: "exact", head: true })
+      .eq("role", "customer"),
+  ]);
+
+  const list = orders ?? [];
+  const revenueOf = (o: { subtotal: number; delivery_fee: number }) =>
+    Number(o.subtotal) + Number(o.delivery_fee);
+
+  const totalRevenue = list.reduce((s, o) => s + revenueOf(o), 0);
+
+  // Last 6 months, oldest → newest.
+  const now = new Date();
+  const months = Array.from({ length: 6 }, (_, i) => {
+    const d = new Date(now.getFullYear(), now.getMonth() - (5 - i), 1);
+    return {
+      key: `${d.getFullYear()}-${d.getMonth()}`,
+      label: d.toLocaleString("en-US", { month: "short" }),
+      revenue: 0,
+    };
+  });
+  const idx = new Map(months.map((m, i) => [m.key, i]));
+  for (const o of list) {
+    const d = new Date(o.created_at);
+    const i = idx.get(`${d.getFullYear()}-${d.getMonth()}`);
+    if (i !== undefined) months[i].revenue += revenueOf(o);
+  }
+
+  return {
+    totalRevenue: Math.round(totalRevenue),
+    totalOrders: list.length,
+    totalCustomers: customerCount ?? 0,
+    monthly: months.map((m) => ({
+      label: m.label,
+      revenue: Math.round(m.revenue),
+    })),
+  };
 }
 
 export interface AdminStats {

@@ -27,8 +27,8 @@ export default async function AdminProductsPage() {
           No products yet. Add your first piece.
         </p>
       ) : (
-        <div className="mt-8 overflow-hidden rounded-2xl border border-border">
-          <table className="w-full text-sm">
+        <div className="mt-8 overflow-x-auto rounded-2xl border border-border">
+          <table className="w-full min-w-[640px] text-sm">
             <thead className="bg-muted/60 text-left text-xs uppercase tracking-wide text-muted-foreground">
               <tr>
                 <th className="px-4 py-3 font-medium">Product</th>

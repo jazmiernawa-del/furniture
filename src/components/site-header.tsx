@@ -2,8 +2,11 @@ import Link from "next/link";
 
 import { getProfile } from "@/lib/auth";
 import { cartCount } from "@/lib/cart";
+import { getNotifications, getUnreadCount } from "@/lib/data/notifications";
 import { BRAND_NAME } from "@/lib/brand";
 import { SignOutButton } from "@/components/sign-out-button";
+import { NotificationBell } from "@/components/notification-bell";
+import { MobileMenu } from "@/components/mobile-menu";
 
 /**
  * Global site header.
@@ -16,6 +19,9 @@ export async function SiteHeader({
   variant?: "solid" | "overlay";
 }) {
   const [profile, count] = await Promise.all([getProfile(), cartCount()]);
+  const [notifications, unread] = profile
+    ? await Promise.all([getNotifications(), getUnreadCount()])
+    : [[], 0];
   const overlay = variant === "overlay";
 
   const wrap = overlay
@@ -44,6 +50,9 @@ export async function SiteHeader({
           <Link href="/how-it-works" className={`transition ${link}`}>
             Concierge
           </Link>
+          <Link href="/contact" className={`transition ${link}`}>
+            Contact
+          </Link>
           {profile?.role === "admin" && (
             <Link href="/admin" className={`transition ${link}`}>
               Admin
@@ -70,6 +79,13 @@ export async function SiteHeader({
               Sign in
             </Link>
           )}
+          {profile && (
+            <NotificationBell
+              notifications={notifications}
+              unreadCount={unread}
+              overlay={overlay}
+            />
+          )}
           <Link
             href="/cart"
             className={`relative transition ${link}`}
@@ -82,6 +98,11 @@ export async function SiteHeader({
               </span>
             )}
           </Link>
+          <MobileMenu
+            authed={Boolean(profile)}
+            isAdmin={profile?.role === "admin"}
+            overlay={overlay}
+          />
         </div>
       </div>
     </header>

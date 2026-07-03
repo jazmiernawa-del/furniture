@@ -14,6 +14,8 @@ export type BillingPeriod = "weekly" | "monthly";
 export type OrderStatus =
   | "pending"
   | "confirmed"
+  | "preparing"
+  | "out_for_delivery"
   | "delivered"
   | "active"
   | "returned"
@@ -235,6 +237,30 @@ export interface Database {
         Update: Partial<Database["public"]["Tables"]["bookings"]["Insert"]>;
         Relationships: [];
       };
+      notifications: {
+        Row: {
+          id: string;
+          user_id: string;
+          title: string;
+          body: string | null;
+          order_id: string | null;
+          read: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          title: string;
+          body?: string | null;
+          order_id?: string | null;
+          read?: boolean;
+          created_at?: string;
+        };
+        Update: Partial<
+          Database["public"]["Tables"]["notifications"]["Insert"]
+        >;
+        Relationships: [];
+      };
       favorites: {
         Row: {
           user_id: string;
@@ -313,5 +339,7 @@ export type RentalOrder = Database["public"]["Tables"]["rental_orders"]["Row"];
 export type OrderItem = Database["public"]["Tables"]["order_items"]["Row"];
 export type Booking = Database["public"]["Tables"]["bookings"]["Row"];
 export type Payment = Database["public"]["Tables"]["payments"]["Row"];
+export type Notification =
+  Database["public"]["Tables"]["notifications"]["Row"];
 
 export type { Json };

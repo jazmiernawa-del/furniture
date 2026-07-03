@@ -10,13 +10,23 @@ import { checkAvailability } from "@/lib/data/availability";
 import { getStripe, isStripeConfigured, toCents } from "@/lib/stripe";
 import { publicEnv } from "@/lib/env";
 import { computeEndDate, todayISO } from "@/lib/rental";
+import { createOrderNotification } from "@/lib/data/notifications";
 import type { OrderItem, RentalOrder } from "@/lib/types/database";
 
 type OwnedOrder = RentalOrder & { order_items: OrderItem[] };
 
-const EXTENDABLE = new Set(["confirmed", "delivered", "active", "overdue"]);
+const EXTENDABLE = new Set([
+  "confirmed",
+  "preparing",
+  "out_for_delivery",
+  "delivered",
+  "active",
+  "overdue",
+]);
 const RETURNABLE = new Set([
   "confirmed",
+  "preparing",
+  "out_for_delivery",
   "delivered",
   "active",
   "overdue",
@@ -74,6 +84,7 @@ export async function returnEarly(formData: FormData): Promise<void> {
     .from("rental_orders")
     .update({ status: "returned" })
     .eq("id", orderId);
+  await createOrderNotification(orderId, "returned");
 
   revalidatePath("/account");
   revalidatePath("/admin/rentals");

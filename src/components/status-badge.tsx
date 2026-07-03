@@ -3,6 +3,8 @@ import type { OrderStatus } from "@/lib/types/database";
 const dotColor: Record<OrderStatus, string> = {
   pending: "bg-amber-400",
   confirmed: "bg-sky-400",
+  preparing: "bg-sky-400",
+  out_for_delivery: "bg-indigo-400",
   delivered: "bg-indigo-400",
   active: "bg-emerald-400",
   returned: "bg-stone-400",
@@ -13,6 +15,8 @@ const dotColor: Record<OrderStatus, string> = {
 const label: Record<OrderStatus, string> = {
   pending: "Pending",
   confirmed: "Confirmed",
+  preparing: "Preparing",
+  out_for_delivery: "Out for Delivery",
   delivered: "Delivered",
   active: "In Residence",
   returned: "Returned",

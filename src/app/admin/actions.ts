@@ -8,6 +8,7 @@ import { createClient } from "@/lib/supabase/server";
 import { requireAdmin } from "@/lib/auth";
 import { publicEnv } from "@/lib/env";
 import { getStripe, isStripeConfigured, toCents } from "@/lib/stripe";
+import { createOrderNotification } from "@/lib/data/notifications";
 import { slugify } from "@/lib/slug";
 import type {
   OrderStatus,
@@ -246,6 +247,8 @@ export async function setPrimaryImage(formData: FormData): Promise<void> {
 const ORDER_STATUSES: OrderStatus[] = [
   "pending",
   "confirmed",
+  "preparing",
+  "out_for_delivery",
   "delivered",
   "active",
   "returned",
@@ -261,6 +264,7 @@ export async function updateOrderStatus(formData: FormData): Promise<void> {
 
   const supabase = await createClient();
   await supabase.from("rental_orders").update({ status }).eq("id", orderId);
+  await createOrderNotification(orderId, status);
 
   revalidatePath("/admin/rentals");
   revalidatePath("/account");

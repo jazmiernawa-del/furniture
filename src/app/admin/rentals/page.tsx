@@ -1,12 +1,15 @@
 import { getAllOrders } from "@/lib/data/admin";
 import { updateOrderStatus, refundDeposit } from "@/app/admin/actions";
 import { StatusBadge } from "@/components/status-badge";
+import { OrderTracker, isTrackable } from "@/components/order-tracker";
 import { formatCurrency, formatDate } from "@/lib/format";
 import type { OrderStatus } from "@/lib/types/database";
 
 const ALL_STATUSES: OrderStatus[] = [
   "pending",
   "confirmed",
+  "preparing",
+  "out_for_delivery",
   "delivered",
   "active",
   "returned",
@@ -80,6 +83,10 @@ export default async function AdminRentalsPage() {
                       </li>
                     ))}
                   </ul>
+                )}
+
+                {isTrackable(order.status) && (
+                  <OrderTracker status={order.status} />
                 )}
 
                 {/* Controls */}

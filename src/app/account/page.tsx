@@ -16,7 +16,14 @@ import { fallbackProductImage } from "@/lib/images";
 
 export const metadata: Metadata = { title: "My Rentals" };
 
-const EXTENDABLE = new Set(["confirmed", "delivered", "active", "overdue"]);
+const EXTENDABLE = new Set([
+  "confirmed",
+  "preparing",
+  "out_for_delivery",
+  "delivered",
+  "active",
+  "overdue",
+]);
 
 export default async function AccountPage() {
   const orders = await getUserOrders();

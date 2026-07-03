@@ -23,6 +23,7 @@ export function SiteFooter() {
             links={[
               ["Collection", "/catalog"],
               ["Concierge", "/how-it-works"],
+              ["Contact", "/contact"],
               ["Your account", "/account"],
             ]}
           />
