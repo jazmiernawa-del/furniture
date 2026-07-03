@@ -40,8 +40,9 @@ export default async function CartPage() {
 
       <main className="flex-1">
         <div className="mx-auto max-w-4xl px-6 py-14">
-          <h1 className="font-serif text-4xl tracking-tight text-foreground">
-            Your cart
+          <p className="eyebrow">Your selections</p>
+          <h1 className="mt-3 font-serif text-5xl font-light tracking-tight text-foreground">
+            The cart
           </h1>
 
           {cart.length === 0 ? (
@@ -134,7 +135,7 @@ export default async function CartPage() {
 
                 <Link
                   href="/checkout"
-                  className="mt-6 block w-full rounded-full bg-accent px-6 py-3 text-center text-sm font-medium text-accent-foreground transition hover:opacity-90"
+                  className="btn-gold mt-6 block w-full rounded-full px-6 py-3.5 text-center text-xs font-medium uppercase tracking-[0.2em]"
                 >
                   Proceed to checkout
                 </Link>

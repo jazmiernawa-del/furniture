@@ -79,25 +79,28 @@ export default async function ProductDetailPage({
             />
 
             <div className="lg:pt-2">
-              <p className="text-xs uppercase tracking-wide text-muted-foreground">
+              <p className="eyebrow">
                 {product.category}
                 {product.style ? ` · ${product.style}` : ""}
               </p>
-              <h1 className="mt-2 font-serif text-4xl tracking-tight text-foreground">
+              <h1 className="mt-4 font-serif text-5xl font-light leading-none tracking-tight text-foreground">
                 {product.name}
               </h1>
 
-              <div className="mt-4 flex items-center gap-3">
-                <span className="rounded-full border border-border px-3 py-1 text-xs font-medium text-muted-foreground">
-                  Condition: {conditionLabels[product.condition] ?? product.condition}
+              <div className="mt-5 flex items-center gap-3">
+                <span className="inline-flex items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  Condition · {conditionLabels[product.condition] ?? product.condition}
                 </span>
               </div>
 
               {product.description && (
-                <p className="mt-6 leading-relaxed text-muted-foreground">
+                <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
                   {product.description}
                 </p>
               )}
+
+              <div className="mt-8 gold-rule w-20" />
 
               {/* Rental-period selection, availability calendar & pricing. */}
               <div className="mt-8">

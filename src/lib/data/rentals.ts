@@ -29,6 +29,32 @@ export async function getUserOrders(): Promise<UserOrder[]> {
   }
 }
 
+/** Map of product_id -> a representative image URL, for rental cards. */
+export async function getProductThumbnails(
+  productIds: string[],
+): Promise<Record<string, string>> {
+  const ids = Array.from(new Set(productIds));
+  if (!isSupabaseConfigured() || ids.length === 0) return {};
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("product_images")
+      .select("product_id, url, is_primary, position")
+      .in("product_id", ids)
+      .order("is_primary", { ascending: false })
+      .order("position", { ascending: true });
+
+    if (error || !data) return {};
+    const map: Record<string, string> = {};
+    for (const row of data) {
+      if (!map[row.product_id]) map[row.product_id] = row.url;
+    }
+    return map;
+  } catch {
+    return {};
+  }
+}
+
 const OPEN_STATUSES = new Set([
   "pending",
   "confirmed",

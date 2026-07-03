@@ -40,7 +40,7 @@ export function SocialAuthButtons({ next }: { next?: string }) {
           type="button"
           onClick={() => signIn("google")}
           disabled={loading !== null}
-          className="flex items-center justify-center gap-3 rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-medium text-foreground transition hover:bg-muted disabled:opacity-60"
+          className="hover-lift flex items-center justify-center gap-3 rounded-full border border-border bg-card px-4 py-3 text-xs font-medium uppercase tracking-[0.15em] text-foreground transition hover:border-accent disabled:opacity-60"
         >
           <GoogleIcon />
           {loading === "google" ? "Redirecting…" : "Continue with Google"}
@@ -49,7 +49,7 @@ export function SocialAuthButtons({ next }: { next?: string }) {
           type="button"
           onClick={() => signIn("facebook")}
           disabled={loading !== null}
-          className="flex items-center justify-center gap-3 rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-medium text-foreground transition hover:bg-muted disabled:opacity-60"
+          className="hover-lift flex items-center justify-center gap-3 rounded-full border border-border bg-card px-4 py-3 text-xs font-medium uppercase tracking-[0.15em] text-foreground transition hover:border-accent disabled:opacity-60"
         >
           <FacebookIcon />
           {loading === "facebook" ? "Redirecting…" : "Continue with Facebook"}
@@ -58,10 +58,10 @@ export function SocialAuthButtons({ next }: { next?: string }) {
 
       {error && <p className="mt-3 text-sm text-red-700">{error}</p>}
 
-      <div className="my-6 flex items-center gap-3">
+      <div className="my-7 flex items-center gap-4">
         <span className="h-px flex-1 bg-border" />
-        <span className="text-xs uppercase tracking-wide text-muted-foreground">
-          or
+        <span className="text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">
+          or with email
         </span>
         <span className="h-px flex-1 bg-border" />
       </div>

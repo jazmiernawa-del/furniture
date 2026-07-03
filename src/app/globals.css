@@ -1,18 +1,21 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   Furniture — design tokens
-   Warm, premium, editorial. Ivory canvas, espresso ink, clay accent.
+   Furniture — ultra-premium design system
+   Warm cream · espresso ink · antique gold. Restoration-Hardware register.
    ========================================================================== */
 :root {
-  --background: #faf7f2; /* warm ivory */
-  --foreground: #1c1714; /* espresso ink */
-  --card: #ffffff;
-  --muted: #f2ece3; /* soft sand */
-  --muted-foreground: #6b6157; /* taupe */
-  --border: #e6ddd0;
-  --accent: #b4632f; /* clay / terracotta */
-  --accent-foreground: #ffffff;
+  --background: #f5efe6; /* warm cream canvas */
+  --foreground: #211d18; /* espresso ink */
+  --card: #fbf7f0; /* raised warm surface */
+  --muted: #ece3d5; /* soft sand */
+  --muted-foreground: #877c6d; /* taupe */
+  --border: #e0d6c5; /* parchment line */
+  --accent: #b08d57; /* antique gold / brass */
+  --accent-strong: #987743; /* deeper gold for hover */
+  --accent-foreground: #1a1712; /* ink text on gold */
+  --ink: #1b1813; /* near-black for dark sections */
+  --ink-foreground: #efe7d8; /* warm off-white on ink */
 }
 
 @theme inline {
@@ -23,17 +26,140 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
   --color-accent-foreground: var(--accent-foreground);
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     background: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+  /* Refined serif display with tight tracking. */
+  .font-serif {
+    letter-spacing: -0.015em;
+  }
+}
+
+@layer components {
+  /* Small-caps luxe label, e.g. section eyebrows. */
+  .eyebrow {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--accent-strong);
+    font-weight: 500;
+  }
+
+  /* Thin gold rule. */
+  .gold-rule {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--accent),
+      transparent
+    );
+  }
+
+  /* Primary CTA — ink with gold hover. */
+  .btn-ink {
+    background: var(--ink);
+    color: var(--ink-foreground);
+    transition:
+      background 0.4s ease,
+      transform 0.4s ease,
+      box-shadow 0.4s ease;
+  }
+  .btn-ink:hover {
+    background: var(--accent-strong);
+    color: var(--accent-foreground);
+    box-shadow: 0 12px 30px -12px rgba(152, 119, 67, 0.6);
+  }
+
+  /* Gold outline CTA. */
+  .btn-gold {
+    background: var(--accent);
+    color: var(--accent-foreground);
+    transition:
+      background 0.4s ease,
+      transform 0.4s ease,
+      box-shadow 0.4s ease;
+  }
+  .btn-gold:hover {
+    background: var(--accent-strong);
+    box-shadow: 0 14px 34px -14px rgba(152, 119, 67, 0.7);
+  }
+}
+
+@layer utilities {
+  /* Lift + shadow on hover for cards. */
+  .hover-lift {
+    transition:
+      transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
+      box-shadow 0.5s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 60px -30px rgba(33, 29, 24, 0.35);
+  }
+
+  /* Slow cinematic zoom for images inside an overflow-hidden frame. */
+  .zoom-parent .zoom-img {
+    transition: transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .zoom-parent:hover .zoom-img {
+    transform: scale(1.06);
+  }
+
+  .animate-rise {
+    animation: rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .animate-fade {
+    animation: fade 1.2s ease both;
+  }
+  .delay-1 {
+    animation-delay: 0.12s;
+  }
+  .delay-2 {
+    animation-delay: 0.24s;
+  }
+  .delay-3 {
+    animation-delay: 0.36s;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

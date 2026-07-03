@@ -3,108 +3,181 @@ import Link from "next/link";
 
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { luxeImages } from "@/lib/images";
 
 const steps = [
   {
-    title: "Choose your pieces",
-    body: "Browse a curated catalog and pick the furniture that fits your space and your season of life.",
+    n: "01",
+    title: "Curate your rooms",
+    body: "Browse a gallery of designer pieces and reserve the ones that speak to your space.",
   },
   {
-    title: "Set your term",
-    body: "Rent by the week or month. We calculate your rate, a refundable deposit, and delivery up front.",
+    n: "02",
+    title: "Choose your season",
+    body: "Rent by the week or month with a transparent rate, refundable deposit, and delivery.",
   },
   {
-    title: "We deliver & collect",
-    body: "White-glove delivery on your date. Extend, return early, or send it back when you're done.",
+    n: "03",
+    title: "We handle the rest",
+    body: "White-glove delivery on your date. Extend, return early, or refresh whenever you like.",
   },
 ];
 
 export default function Home() {
   return (
     <>
-      <SiteHeader />
+      {/* ================= HERO ================= */}
+      <section className="relative h-[92vh] min-h-[640px] w-full overflow-hidden">
+        <Image
+          src={luxeImages.hero}
+          alt="A beautifully styled living room"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/25 to-ink/80" />
 
-      <main className="flex-1">
-        {/* Hero */}
-        <section className="mx-auto grid max-w-6xl items-center gap-12 px-6 pb-16 pt-14 lg:grid-cols-2 lg:pt-20">
+        <SiteHeader variant="overlay" />
+
+        <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-end px-6 pb-20 lg:px-10">
+          <p className="eyebrow animate-fade text-accent">
+            Furniture rental, elevated
+          </p>
+          <h1 className="animate-rise mt-5 max-w-4xl font-serif text-6xl font-light leading-[0.95] text-white sm:text-7xl lg:text-8xl">
+            Live beautifully,
+            <br />
+            <span className="italic text-white/90">without owning a thing.</span>
+          </h1>
+          <p className="animate-rise delay-1 mt-7 max-w-lg text-lg font-light leading-relaxed text-white/80">
+            A curated collection of premium furniture, delivered to your door and
+            yours for a season — or as long as you love it.
+          </p>
+          <div className="animate-rise delay-2 mt-9 flex flex-wrap items-center gap-5">
+            <Link
+              href="/catalog"
+              className="btn-gold rounded-full px-8 py-3.5 text-xs font-medium uppercase tracking-[0.2em]"
+            >
+              Explore the collection
+            </Link>
+            <Link
+              href="/how-it-works"
+              className="text-xs font-medium uppercase tracking-[0.2em] text-white/80 underline-offset-8 transition hover:text-white hover:underline"
+            >
+              How it works
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= PHILOSOPHY ================= */}
+      <section className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+        <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:items-center">
           <div>
-            <span className="inline-flex items-center rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-              Furniture rental, reimagined
-            </span>
-            <h1 className="mt-6 font-serif text-5xl leading-[1.05] tracking-tight text-foreground sm:text-6xl">
-              Beautiful rooms,
-              <br />
-              <span className="italic text-accent">without the commitment.</span>
-            </h1>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
-              Rent premium furniture by the week or month. Flexible terms, a
-              refundable deposit, and delivery and pickup handled for you.
+            <p className="eyebrow">The Furniture ethos</p>
+            <h2 className="mt-5 font-serif text-4xl font-light leading-tight text-foreground sm:text-5xl">
+              Design worth living with, for exactly as long as you need it.
+            </h2>
+            <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">
+              We believe a home should evolve with you. Rent extraordinary pieces
+              — sculptural sofas, warm oak tables, boucle armchairs — with the
+              flexibility ownership never offered. Every rental includes a
+              refundable deposit and white-glove delivery and pickup.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link
-                href="/catalog"
-                className="rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background transition hover:opacity-90"
-              >
-                Browse the catalog
-              </Link>
-              <Link
-                href="/how-it-works"
-                className="text-sm font-medium text-foreground underline-offset-4 transition hover:underline"
-              >
-                How renting works →
-              </Link>
-            </div>
+            <Link
+              href="/catalog"
+              className="mt-8 inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-foreground"
+            >
+              <span className="h-px w-10 bg-accent" />
+              Begin browsing
+            </Link>
           </div>
 
-          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-muted">
+          <div className="zoom-parent relative aspect-[5/4] overflow-hidden rounded-sm">
             <Image
-              src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80"
-              alt="A styled living room with a linen sofa and warm wood accents"
+              src={luxeImages.feature}
+              alt="A linen sofa in a sunlit room"
               fill
-              priority
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              className="object-cover"
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              className="zoom-img object-cover"
             />
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* How it works */}
-        <section className="border-y border-border/70 bg-muted/40">
-          <div className="mx-auto max-w-6xl px-6 py-16">
-            <h2 className="font-serif text-3xl tracking-tight text-foreground">
-              How it works
+      {/* ================= HOW IT WORKS ================= */}
+      <section className="border-y border-border bg-card">
+        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">The concierge experience</p>
+            <h2 className="mt-5 font-serif text-4xl font-light text-foreground sm:text-5xl">
+              Effortless from first glance to final pickup
             </h2>
-            <div className="mt-10 grid gap-8 sm:grid-cols-3">
-              {steps.map((step, i) => (
-                <div key={step.title}>
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background font-serif text-lg text-accent">
-                    {i + 1}
-                  </div>
-                  <h3 className="mt-4 text-lg font-medium text-foreground">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {step.body}
-                  </p>
-                </div>
-              ))}
+          </div>
+          <div className="mt-16 grid gap-12 md:grid-cols-3">
+            {steps.map((step) => (
+              <div key={step.n} className="text-center md:text-left">
+                <p className="font-serif text-5xl font-light text-accent">
+                  {step.n}
+                </p>
+                <div className="mt-4 gold-rule md:w-16" />
+                <h3 className="mt-5 font-serif text-2xl text-foreground">
+                  {step.title}
+                </h3>
+                <p className="mt-3 leading-relaxed text-muted-foreground">
+                  {step.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= LIFESTYLE BAND (overlapping text) ================= */}
+      <section className="relative">
+        <div className="relative h-[70vh] min-h-[460px] w-full overflow-hidden">
+          <Image
+            src={luxeImages.lifestyle}
+            alt="A warm dining room set for a long evening"
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-ink/40" />
+        </div>
+        <div className="absolute inset-0 flex items-center">
+          <div className="mx-auto w-full max-w-7xl px-6 lg:px-10">
+            <div className="max-w-md bg-card/95 p-10 shadow-2xl backdrop-blur-sm sm:p-12">
+              <p className="eyebrow">White-glove service</p>
+              <h2 className="mt-4 font-serif text-4xl font-light leading-tight text-foreground">
+                Delivered, styled, and collected — you simply enjoy it.
+              </h2>
+              <Link
+                href="/catalog"
+                className="btn-ink mt-8 inline-flex rounded-full px-7 py-3 text-xs font-medium uppercase tracking-[0.2em]"
+              >
+                Start your collection
+              </Link>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Closing CTA */}
-        <section className="mx-auto max-w-6xl px-6 py-20 text-center">
-          <h2 className="mx-auto max-w-2xl font-serif text-4xl leading-tight tracking-tight text-foreground">
-            Furnish your space for a season, not forever.
-          </h2>
-          <Link
-            href="/catalog"
-            className="mt-8 inline-flex rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground transition hover:opacity-90"
-          >
-            Start browsing
-          </Link>
-        </section>
-      </main>
+      {/* ================= CLOSING ================= */}
+      <section className="mx-auto max-w-4xl px-6 py-28 text-center">
+        <p className="eyebrow">Your next chapter</p>
+        <h2 className="mt-5 font-serif text-5xl font-light leading-tight text-foreground sm:text-6xl">
+          Furnish for a season,
+          <br />
+          <span className="italic text-accent">not forever.</span>
+        </h2>
+        <Link
+          href="/catalog"
+          className="btn-gold mt-10 inline-flex rounded-full px-9 py-4 text-xs font-medium uppercase tracking-[0.2em]"
+        >
+          Explore the collection
+        </Link>
+      </section>
 
       <SiteFooter />
     </>

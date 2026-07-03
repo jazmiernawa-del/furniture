@@ -70,7 +70,7 @@ export function CheckoutForm({
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground transition hover:opacity-90 disabled:opacity-60"
+        className="btn-gold w-full rounded-full px-6 py-3.5 text-xs font-medium uppercase tracking-[0.2em] disabled:opacity-60"
       >
         {pending ? "Redirecting to secure checkout…" : "Pay with Stripe"}
       </button>

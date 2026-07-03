@@ -35,19 +35,23 @@ export default function HowItWorksPage() {
       <SiteHeader />
 
       <main className="flex-1">
-        <div className="mx-auto max-w-3xl px-6 py-16">
-          <h1 className="font-serif text-4xl tracking-tight text-foreground">
+        <div className="mx-auto max-w-3xl px-6 py-20">
+          <p className="eyebrow">The concierge experience</p>
+          <h1 className="mt-4 font-serif text-5xl font-light leading-none tracking-tight text-foreground sm:text-6xl">
             How renting works
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
             Furnishing a space shouldn&apos;t mean owning everything forever.
             Here&apos;s the short version.
           </p>
+          <div className="mt-8 gold-rule w-24" />
 
-          <div className="mt-12 space-y-8">
+          <div className="mt-14 space-y-8">
             {faqs.map((faq) => (
               <div key={faq.q} className="border-t border-border pt-6">
-                <h2 className="font-serif text-xl text-foreground">{faq.q}</h2>
+                <h2 className="font-serif text-2xl font-light text-foreground">
+                  {faq.q}
+                </h2>
                 <p className="mt-2 leading-relaxed text-muted-foreground">
                   {faq.a}
                 </p>
@@ -58,9 +62,9 @@ export default function HowItWorksPage() {
           <div className="mt-14">
             <Link
               href="/catalog"
-              className="inline-flex rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background transition hover:opacity-90"
+              className="btn-ink inline-flex rounded-full px-8 py-3.5 text-xs font-medium uppercase tracking-[0.2em]"
             >
-              Browse the catalog
+              Explore the collection
             </Link>
           </div>
         </div>

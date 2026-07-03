@@ -53,15 +53,17 @@ export default async function CatalogPage({
       <SiteHeader />
 
       <main className="flex-1">
-        <div className="mx-auto max-w-6xl px-6 py-14">
+        <div className="mx-auto max-w-6xl px-6 py-16 lg:py-20">
           <header className="max-w-2xl">
-            <h1 className="font-serif text-4xl tracking-tight text-foreground">
-              The collection
+            <p className="eyebrow">The collection</p>
+            <h1 className="mt-4 font-serif text-5xl font-light leading-none tracking-tight text-foreground sm:text-6xl">
+              Curated for living
             </h1>
-            <p className="mt-3 text-lg text-muted-foreground">
-              Curated pieces, ready to rent. Choose a weekly or monthly term at
-              checkout — delivery and pickup included.
+            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+              Designer pieces, ready to rent by the week or month — each with a
+              refundable deposit and white-glove delivery and pickup.
             </p>
+            <div className="mt-8 gold-rule w-24" />
           </header>
 
           {configured && (

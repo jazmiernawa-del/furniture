@@ -34,7 +34,8 @@ export default async function CheckoutPage({
 
       <main className="flex-1">
         <div className="mx-auto max-w-4xl px-6 py-14">
-          <h1 className="font-serif text-4xl tracking-tight text-foreground">
+          <p className="eyebrow">Final details</p>
+          <h1 className="mt-3 font-serif text-5xl font-light tracking-tight text-foreground">
             Checkout
           </h1>
 

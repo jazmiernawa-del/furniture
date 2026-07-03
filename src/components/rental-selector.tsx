@@ -177,7 +177,7 @@ export function RentalSelector({
         <button
           type="submit"
           disabled={!canAdd || pending}
-          className="w-full rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+          className="btn-gold w-full rounded-full px-6 py-3.5 text-xs font-medium uppercase tracking-[0.2em] disabled:cursor-not-allowed disabled:opacity-40"
         >
           {pending ? "Adding…" : start ? "Add to cart" : "Select a start date"}
         </button>
