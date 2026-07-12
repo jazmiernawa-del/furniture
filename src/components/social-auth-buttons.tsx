@@ -24,10 +24,12 @@ export function SocialAuthButtons({ next }: { next?: string }) {
       // On success the browser is redirected to the provider, so we only get
       // here on error.
       if (error) {
+        console.error(`[social-auth] ${provider} signInWithOAuth failed:`, error);
         setError(error.message);
         setLoading(null);
       }
-    } catch {
+    } catch (err) {
+      console.error(`[social-auth] ${provider} sign-in threw:`, err);
       setError("Social sign-in isn't available right now.");
       setLoading(null);
     }

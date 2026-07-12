@@ -35,6 +35,10 @@ export async function login(
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
+    console.error(
+      `[auth/login] signInWithPassword failed — code=${error.code ?? "n/a"} ` +
+        `status=${error.status ?? "n/a"} message="${error.message}"`,
+    );
     return { error: error.message };
   }
 
@@ -71,6 +75,10 @@ export async function register(
   });
 
   if (error) {
+    console.error(
+      `[auth/register] signUp failed — code=${error.code ?? "n/a"} ` +
+        `status=${error.status ?? "n/a"} message="${error.message}"`,
+    );
     return { error: error.message };
   }
 
@@ -111,7 +119,13 @@ export async function requestPasswordReset(
     redirectTo: `${publicEnv.siteUrl}/auth/callback?next=/reset-password`,
   });
 
-  if (error) return { error: error.message };
+  if (error) {
+    console.error(
+      `[auth/reset] resetPasswordForEmail failed — code=${error.code ?? "n/a"} ` +
+        `status=${error.status ?? "n/a"} message="${error.message}"`,
+    );
+    return { error: error.message };
+  }
 
   // Always show the same confirmation (don't reveal whether the email exists).
   return {
@@ -147,7 +161,13 @@ export async function updatePassword(
   }
 
   const { error } = await supabase.auth.updateUser({ password });
-  if (error) return { error: error.message };
+  if (error) {
+    console.error(
+      `[auth/update-password] updateUser failed — code=${error.code ?? "n/a"} ` +
+        `status=${error.status ?? "n/a"} message="${error.message}"`,
+    );
+    return { error: error.message };
+  }
 
   revalidatePath("/", "layout");
   redirect("/account");
